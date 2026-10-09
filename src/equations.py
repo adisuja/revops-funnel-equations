@@ -314,6 +314,88 @@ def render_pack():
 
 
 STANDALONE_URL = "https://revops-funnel-equations.growthcluborg.workers.dev/"
+WORKSHOP_URL = "https://adisuja.github.io/tantra-workshop-live/site/workshop/"
+# The Apps Script receiver every funnel form posts to (app/src/lib/form-log.ts). Public by nature: the browser calls it.
+# The live receiver accepts six form keys, so a lead magnet sign-up goes in as a registration row with
+# source=funnel-equations; ops/tracker_sync.py lifts those rows into the Tantra Tracker's own Funnel Equations tab.
+LEAD_WEBHOOK = "https://script.google.com/macros/s/AKfycbxgZiV7RLX8t5cE8fR8TN8a2tMe_0ufQnMsc5OpCJJU6CsVns__QS7qNWhoESTHiiKAnw/exec"
+LEAD_SOURCE = "funnel-equations"
+LEAD_KEY = "rfe_unlocked"
+
+GATE_CSS = ("<style>.eqgate{max-width:440px;margin-top:8px}.eqgate p{margin:0 0 20px;color:var(--ink-2)}"
+            ".eqgate label{display:block;font-size:14px;font-weight:600;margin:0 0 6px}"
+            ".eqgate input{display:block;width:100%;box-sizing:border-box;font:inherit;color:var(--ink);background:var(--panel-2);"
+            "border:1px solid var(--line-2);border-radius:8px;padding:11px 13px;margin:0 0 16px}"
+            ".eqgate input:focus-visible,.eqgate button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}"
+            ".eqgate button{font:inherit;font-weight:700;color:#fff;background:var(--accent);border:0;border-radius:8px;"
+            "padding:12px 20px;min-height:46px;cursor:pointer}.eqgate button:hover{background:var(--accent-ink)}"
+            ".eqgate .eqerr{color:#b3261e;font-size:14px;margin:12px 0 0}.eqgate .eqerr:empty{display:none}"
+            ".eqcta{margin:0 0 8px;color:var(--ink-2)}.eqcta a{color:var(--accent);font-weight:700}"
+            ".eqlocked .eqopen{display:none}html:not(.eqlocked) .eqgate{display:none}</style>")
+
+# runs in <head>, before paint, so a returning reader never sees the form flash
+GATE_HEAD_JS = ("<script>(function(){var d=document.documentElement;try{if(localStorage.getItem(\"%s\"))return}catch(e){}"
+                "d.classList.add(\"eqlocked\")})();</script>" % LEAD_KEY)
+
+GATE_FORM = """<form class="eqgate" id="eqgate" novalidate>
+    <p>Enter your name, email and WhatsApp number and the equations open on this page.</p>
+    <label for="eq-name">Name</label>
+    <input id="eq-name" name="name" type="text" autocomplete="name" required>
+    <label for="eq-email">Email</label>
+    <input id="eq-email" name="email" type="email" autocomplete="email" inputmode="email" required>
+    <label for="eq-phone">WhatsApp Number</label>
+    <input id="eq-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required>
+    <button type="submit">Show Me the Equations</button>
+    <p class="eqerr" id="eq-err" role="alert"></p>
+  </form>"""
+
+GATE_JS = """<script>
+(function () {
+  var form = document.getElementById("eqgate");
+  if (!form) return;
+  var err = document.getElementById("eq-err");
+  form.addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    var name = form.elements.name.value.trim();
+    var email = form.elements.email.value.trim();
+    var phone = form.elements.phone.value.trim();
+    var bad = !name ? ["name", "Enter your name."]
+      : !/^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$/.test(email) ? ["email", "Enter a valid email address."]
+      : phone.replace(/\\D/g, "").length < 7 ? ["phone", "Enter your WhatsApp number with the country code."]
+      : null;
+    if (bad) {
+      err.textContent = bad[1];
+      form.elements[bad[0]].focus();
+      return;
+    }
+    var parts = name.split(/\\s+/);
+    var row = {
+      form: "free_registration",
+      first_name: parts[0],
+      last_name: parts.slice(1).join(" "),
+      email: email,
+      phone: phone,
+      lane: "lead-magnet",
+      source: "%(source)s",
+      page: "/revops-funnel-equations",
+      via: "apps-script"
+    };
+    var q = new URLSearchParams(location.search);
+    ["utm_source", "utm_medium", "utm_campaign", "utm_content"].forEach(function (k) {
+      var v = q.get(k);
+      if (v) row[k] = v.slice(0, 200);
+    });
+    try {
+      // text/plain keeps this a simple request: no CORS preflight, which Apps Script cannot answer
+      fetch("%(hook)s", { method: "POST", mode: "no-cors", keepalive: true,
+        headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(row) }).catch(function () {});
+    } catch (e) {}
+    try { localStorage.setItem("%(key)s", "1"); } catch (e) {}
+    document.documentElement.classList.remove("eqlocked");
+    window.scrollTo(0, 0);
+  });
+})();
+</script>""" % {"source": LEAD_SOURCE, "hook": LEAD_WEBHOOK, "key": LEAD_KEY}
 
 
 def render_standalone(pb):
@@ -335,12 +417,19 @@ def render_standalone(pb):
 <link rel="canonical" href="{STANDALONE_URL}">
 {style}
 {solo}
+{GATE_CSS}
+{GATE_HEAD_JS}
 </head>
 <body>
 <div class="shell eqsolo"><main>
   <h1>The RevOps Funnel Equations</h1>
+  {GATE_FORM}
+  <div class="eqopen">
+  <p class="eqcta">Want these numbers built into your own funnel? <a href="{WORKSHOP_URL}">Join the free 3-Day AI RevOps Workshop</a>.</p>
   {body}
+  </div>
 </main></div>
+{GATE_JS}
 </body>
 </html>
 """

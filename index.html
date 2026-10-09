@@ -334,10 +334,25 @@ footer{border-top:1px solid var(--line);text-align:center;padding:34px 22px;colo
 .chkday tr.sub td{padding-top:16px;border-top:1px solid var(--line-2);color:var(--accent-ink);font-size:13px}
 </style>
 <style>.shell.eqsolo{grid-template-columns:minmax(0,1fr);max-width:900px}.eqsolo main{max-width:none;padding-top:40px}.eqsolo h2{margin-top:44px}@media(max-width:560px){h1{font-size:32px}}</style>
+<style>.eqgate{max-width:440px;margin-top:8px}.eqgate p{margin:0 0 20px;color:var(--ink-2)}.eqgate label{display:block;font-size:14px;font-weight:600;margin:0 0 6px}.eqgate input{display:block;width:100%;box-sizing:border-box;font:inherit;color:var(--ink);background:var(--panel-2);border:1px solid var(--line-2);border-radius:8px;padding:11px 13px;margin:0 0 16px}.eqgate input:focus-visible,.eqgate button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}.eqgate button{font:inherit;font-weight:700;color:#fff;background:var(--accent);border:0;border-radius:8px;padding:12px 20px;min-height:46px;cursor:pointer}.eqgate button:hover{background:var(--accent-ink)}.eqgate .eqerr{color:#b3261e;font-size:14px;margin:12px 0 0}.eqgate .eqerr:empty{display:none}.eqcta{margin:0 0 8px;color:var(--ink-2)}.eqcta a{color:var(--accent);font-weight:700}.eqlocked .eqopen{display:none}html:not(.eqlocked) .eqgate{display:none}</style>
+<script>(function(){var d=document.documentElement;try{if(localStorage.getItem("rfe_unlocked"))return}catch(e){}d.classList.add("eqlocked")})();</script>
 </head>
 <body>
 <div class="shell eqsolo"><main>
   <h1>The RevOps Funnel Equations</h1>
+  <form class="eqgate" id="eqgate" novalidate>
+    <p>Enter your name, email and WhatsApp number and the equations open on this page.</p>
+    <label for="eq-name">Name</label>
+    <input id="eq-name" name="name" type="text" autocomplete="name" required>
+    <label for="eq-email">Email</label>
+    <input id="eq-email" name="email" type="email" autocomplete="email" inputmode="email" required>
+    <label for="eq-phone">WhatsApp Number</label>
+    <input id="eq-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required>
+    <button type="submit">Show Me the Equations</button>
+    <p class="eqerr" id="eq-err" role="alert"></p>
+  </form>
+  <div class="eqopen">
+  <p class="eqcta">Want these numbers built into your own funnel? <a href="https://adisuja.github.io/tantra-workshop-live/site/workshop/">Join the free 3-Day AI RevOps Workshop</a>.</p>
   <section id="equations">
       <p>One metric per stage, per funnel. Each stage's equation shows what that metric is made of, channel by channel. Every rate is one count divided by another.</p>
       <div class="tbl stack"><table><thead><tr><th>Stage</th><th>Webinar</th><th>Reverse Squeeze Page</th><th>Workshop Series</th></tr></thead><tbody><tr><td data-label="Stage">1. Traffic</td><td data-label="Webinar"><b>VR</b> Visit Rate</td><td data-label="Reverse Squeeze Page"><b>VR</b> Visit Rate</td><td data-label="Workshop Series"><b>VR</b> Visit Rate</td></tr><tr><td data-label="Stage">2. Landing and Sign-Up</td><td data-label="Webinar"><b>PAR</b> Page-to-Attendee Rate</td><td data-label="Reverse Squeeze Page"><b>HWR</b> Half-Watch Rate</td><td data-label="Workshop Series"><b>PDHR</b> Page-to-Day-and-a-Half Rate</td></tr><tr><td data-label="Stage">3. Reminders and Nurture</td><td data-label="Webinar"><b>SUR</b> Show-Up Rate</td><td data-label="Reverse Squeeze Page"><b>NHWR</b> Nurtured Half-Watch Rate</td><td data-label="Workshop Series"><b>DHR</b> Day-and-a-Half Rate</td></tr><tr><td data-label="Stage">4. Booking the Call</td><td data-label="Webinar"><b>BR</b> Booking Rate</td><td data-label="Reverse Squeeze Page"><b>BR</b> Booking Rate</td><td data-label="Workshop Series"><b>BR</b> Booking Rate</td></tr><tr><td data-label="Stage">5. The Sales Pipeline</td><td data-label="Webinar"><b>CR</b> Close Rate</td><td data-label="Reverse Squeeze Page"><b>CR</b> Close Rate</td><td data-label="Workshop Series"><b>CR</b> Close Rate</td></tr><tr><td data-label="Stage">6. The Next 52 Weeks</td><td data-label="Webinar"><b>YRR</b> Yearly Rebooking Rate</td><td data-label="Reverse Squeeze Page"><b>YRR</b> Yearly Rebooking Rate</td><td data-label="Workshop Series"><b>YRR</b> Yearly Rebooking Rate</td></tr></tbody></table></div>
@@ -366,6 +381,54 @@ footer{border-top:1px solid var(--line);text-align:center;padding:34px 22px;colo
       <div class="eqs" id="eq-workshop-s5"><div class="eqs-h"><span>Stage 5</span> The Sales Pipeline</div><p class="eqs-m">Metric: <b>CR</b> (Close Rate) = onboarded customers ÷ calls booked</p><div class="eqs-eq"><div class="eqs-l"><b>CR</b> = CHR × QR × PR × WR × PCR × OCR</div><div class="eqs-l"><b>CHR</b> = CSR + (1 − CSR) × RBR × CSR</div><div class="eqs-l"><b>CSR</b> = USR + ECS + WCS + SCS + CCS</div><div class="eqs-l"><b>ECS</b> = CRDR × CROR × ESCR</div><div class="eqs-l"><b>WCS</b> = BWR × WDR × WRR × WSCR</div><div class="eqs-l"><b>SCS</b> = BSR × SDR × SSCR</div><div class="eqs-l"><b>CCS</b> = BPS × RCAR × CSCR</div><div class="eqs-l"><b>RBR</b> = NF1R + NF2R + NF3R + NF4R + NF5R</div><div class="eqs-l"><b>WR</b> = WWC + DF1R + DF2R + DF3R</div><div class="eqs-l"><b>OC</b> = CB × CR</div></div><ul class="eqs-k"><li><b>CR</b><span><i>Close Rate</i>: onboarded customers ÷ calls booked</span></li><li><b>CHR</b><span><i>Calls Held Rate</i>: calls held, including rebooked ones ÷ calls booked</span></li><li><b>QR</b><span><i>Qualified Rate</i>: qualified ÷ calls held</span></li><li><b>PR</b><span><i>Proposal Rate</i>: proposals sent ÷ qualified</span></li><li><b>WR</b><span><i>Win Rate</i>: proposals accepted ÷ proposals sent</span></li><li><b>PCR</b><span><i>Payment Completion Rate</i>: payments completed ÷ proposals accepted</span></li><li><b>OCR</b><span><i>Onboarding Completion Rate</i>: customers onboarded ÷ customers who paid</span></li><li><b>CSR</b><span><i>Call Show Rate</i>: calls held the first time ÷ calls booked</span></li><li><b>RBR</b><span><i>Rebook Rate</i>: no-shows who rebooked ÷ no-shows (the five follow-ups added)</span></li><li><b>USR</b><span><i>Unprompted Show Rate</i>: showed with no reminder click ÷ calls booked</span></li><li><b>ECS</b><span><i>Email Confirmed Shows</i>: showed after confirming from the email reminder ÷ calls booked</span></li><li><b>WCS</b><span><i>WhatsApp Confirmed Shows</i>: showed after confirming from the WhatsApp reminder ÷ calls booked</span></li><li><b>SCS</b><span><i>SMS Confirmed Shows</i>: showed after confirming from the SMS reminder ÷ calls booked</span></li><li><b>CCS</b><span><i>Call Confirmed Shows</i>: showed after confirming on the AI call ÷ calls booked</span></li><li><b>CRDR</b><span><i>Call Reminder Delivery Rate</i>: delivered ÷ sent</span></li><li><b>CROR</b><span><i>Call Reminder Open Rate</i>: opened ÷ delivered</span></li><li><b>ESCR</b><span><i>Email Show Confirm Rate</i>: confirmed and showed ÷ people who opened</span></li><li><b>BWR</b><span><i>Booked WhatsApp Reach</i>: booked contacts with WhatsApp ÷ calls booked</span></li><li><b>WDR</b><span><i>WhatsApp Delivery Rate</i>: delivered ÷ sent</span></li><li><b>WRR</b><span><i>WhatsApp Read Rate</i>: read ÷ delivered</span></li><li><b>WSCR</b><span><i>WhatsApp Show Confirm Rate</i>: confirmed and showed ÷ read</span></li><li><b>BSR</b><span><i>Booked SMS Reach</i>: booked contacts with a phone and consent ÷ calls booked</span></li><li><b>SDR</b><span><i>SMS Delivery Rate</i>: delivered ÷ sent</span></li><li><b>SSCR</b><span><i>SMS Show Confirm Rate</i>: confirmed and showed ÷ delivered</span></li><li><b>BPS</b><span><i>Booked Phone Share</i>: booked contacts the AI caller can ring ÷ calls booked</span></li><li><b>RCAR</b><span><i>Reminder Call Answer Rate</i>: answered ÷ called</span></li><li><b>CSCR</b><span><i>Call Show Confirm Rate</i>: confirmed and showed ÷ answered</span></li><li><b>NF1R</b><span><i>No-Show Follow-Up 1 Rate</i>: rebooked after no-show follow-up 1 (sent right away) ÷ no-shows</span></li><li><b>NF2R</b><span><i>No-Show Follow-Up 2 Rate</i>: rebooked after follow-up 2 (3 days later) ÷ no-shows</span></li><li><b>NF3R</b><span><i>No-Show Follow-Up 3 Rate</i>: rebooked after follow-up 3 (3 days after that) ÷ no-shows</span></li><li><b>NF4R</b><span><i>No-Show Follow-Up 4 Rate</i>: rebooked after follow-up 4 (3 days after that) ÷ no-shows</span></li><li><b>NF5R</b><span><i>No-Show Follow-Up 5 Rate</i>: rebooked after follow-up 5 (a week after that) ÷ no-shows</span></li><li><b>WWC</b><span><i>Win Without Chasing</i>: accepted with no chasing ÷ proposals sent</span></li><li><b>DF1R</b><span><i>Deal Follow-Up 1 Rate</i>: accepted after deal follow-up 1 (day 3) ÷ proposals sent</span></li><li><b>DF2R</b><span><i>Deal Follow-Up 2 Rate</i>: accepted after deal follow-up 2 (day 7) ÷ proposals sent</span></li><li><b>DF3R</b><span><i>Deal Follow-Up 3 Rate</i>: accepted after deal follow-up 3 (day 12) ÷ proposals sent</span></li><li><b>OC</b><span><i>Onboarded Customers</i></span></li><li><b>CB</b><span><i>Calls Booked</i></span></li></ul></div>
       <div class="eqs" id="eq-workshop-s6"><div class="eqs-h"><span>Stage 6</span> The Next 52 Weeks</div><p class="eqs-m">Metric: <b>YRR</b> (Yearly Rebooking Rate) = calls booked from the 52-week messages ÷ people on the list</p><div class="eqs-eq"><div class="eqs-l"><b>YRR</b> = WEB + ANB + NWB + NSB + CICB</div><div class="eqs-l"><b>WEB</b> = WER × WES × WEDR × WEOR × WECR × CBR</div><div class="eqs-l"><b>ANB</b> = ANR × ANS × ANDR × ANOR × ANCR × CBR</div><div class="eqs-l"><b>NWB</b> = NWR × NWS × NWDR × NWRR × NWCR × CBR</div><div class="eqs-l"><b>NSB</b> = NSR × NSS × NSDR × NSCR × CBR</div><div class="eqs-l"><b>CICB</b> = CICR × CIC × CIAR × CIBR</div><div class="eqs-l"><b>LS</b> = R − OC</div><div class="eqs-l"><b>YCB</b> = LS × YRR</div></div><ul class="eqs-k"><li><b>YRR</b><span><i>Yearly Rebooking Rate</i>: calls booked from the 52-week messages ÷ people on the list</span></li><li><b>WEB</b><span><i>Weekly Email Bookings</i>: calls booked from weekly email ÷ people on the list (its share of the credit)</span></li><li><b>ANB</b><span><i>AI Newsletter Bookings</i>: calls booked from AI newsletter ÷ people on the list (its share of the credit)</span></li><li><b>NWB</b><span><i>Nurture WhatsApp Bookings</i>: calls booked from WhatsApp ÷ people on the list (its share of the credit)</span></li><li><b>NSB</b><span><i>Nurture SMS Bookings</i>: calls booked from SMS ÷ people on the list (its share of the credit)</span></li><li><b>CICB</b><span><i>Check-In Call Bookings</i>: calls booked from AI check-in calls ÷ people on the list</span></li><li><b>WER</b><span><i>Weekly Email Reach</i>: people who can get weekly email ÷ people on the list</span></li><li><b>WES</b><span><i>Weekly Email Sends</i>: weekly email sends per person per year</span></li><li><b>WEDR</b><span><i>Weekly Email Delivery Rate</i>: delivered ÷ sent</span></li><li><b>WEOR</b><span><i>Weekly Email Open Rate</i>: opened ÷ delivered</span></li><li><b>WECR</b><span><i>Weekly Email Click Rate</i>: clicks ÷ messages opened</span></li><li><b>CBR</b><span><i>Click-to-Booking Rate</i>: calls booked ÷ clicks from 52-week messages</span></li><li><b>ANR</b><span><i>AI Newsletter Reach</i>: people who can get AI newsletter ÷ people on the list</span></li><li><b>ANS</b><span><i>AI Newsletter Sends</i>: AI newsletter sends per person per year</span></li><li><b>ANDR</b><span><i>AI Newsletter Delivery Rate</i>: delivered ÷ sent</span></li><li><b>ANOR</b><span><i>AI Newsletter Open Rate</i>: opened ÷ delivered</span></li><li><b>ANCR</b><span><i>AI Newsletter Click Rate</i>: clicks ÷ messages opened</span></li><li><b>NWR</b><span><i>Nurture WhatsApp Reach</i>: people who can get WhatsApp ÷ people on the list</span></li><li><b>NWS</b><span><i>Nurture WhatsApp Sends</i>: WhatsApp sends per person per year</span></li><li><b>NWDR</b><span><i>Nurture WhatsApp Delivery Rate</i>: delivered ÷ sent</span></li><li><b>NWRR</b><span><i>Nurture WhatsApp Read Rate</i>: read ÷ delivered</span></li><li><b>NWCR</b><span><i>Nurture WhatsApp Click Rate</i>: clicks ÷ messages read</span></li><li><b>NSR</b><span><i>Nurture SMS Reach</i>: people who can get SMS ÷ people on the list</span></li><li><b>NSS</b><span><i>Nurture SMS Sends</i>: SMS sends per person per year</span></li><li><b>NSDR</b><span><i>Nurture SMS Delivery Rate</i>: delivered ÷ sent</span></li><li><b>NSCR</b><span><i>Nurture SMS Click Rate</i>: clicks ÷ texts delivered</span></li><li><b>CICR</b><span><i>Check-In Call Reach</i>: people the AI caller can ring ÷ people on the list</span></li><li><b>CIC</b><span><i>Check-In Calls</i>: AI check-in calls per person per year</span></li><li><b>CIAR</b><span><i>Check-In Answer Rate</i>: answered ÷ called</span></li><li><b>CIBR</b><span><i>Check-In Booking Rate</i>: calls booked ÷ check-in calls answered</span></li><li><b>LS</b><span><i>List Size</i>: everyone known who did not become a customer</span></li><li><b>R</b><span><i>Registrants</i>: page sign-ups plus auto-registrants</span></li><li><b>OC</b><span><i>Onboarded Customers</i></span></li><li><b>YCB</b><span><i>Yearly Calls Booked</i>: calls booked from the 52 weeks</span></li></ul></div>
       </section>
+  </div>
 </main></div>
+<script>
+(function () {
+  var form = document.getElementById("eqgate");
+  if (!form) return;
+  var err = document.getElementById("eq-err");
+  form.addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    var name = form.elements.name.value.trim();
+    var email = form.elements.email.value.trim();
+    var phone = form.elements.phone.value.trim();
+    var bad = !name ? ["name", "Enter your name."]
+      : !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) ? ["email", "Enter a valid email address."]
+      : phone.replace(/\D/g, "").length < 7 ? ["phone", "Enter your WhatsApp number with the country code."]
+      : null;
+    if (bad) {
+      err.textContent = bad[1];
+      form.elements[bad[0]].focus();
+      return;
+    }
+    var parts = name.split(/\s+/);
+    var row = {
+      form: "free_registration",
+      first_name: parts[0],
+      last_name: parts.slice(1).join(" "),
+      email: email,
+      phone: phone,
+      lane: "lead-magnet",
+      source: "funnel-equations",
+      page: "/revops-funnel-equations",
+      via: "apps-script"
+    };
+    var q = new URLSearchParams(location.search);
+    ["utm_source", "utm_medium", "utm_campaign", "utm_content"].forEach(function (k) {
+      var v = q.get(k);
+      if (v) row[k] = v.slice(0, 200);
+    });
+    try {
+      // text/plain keeps this a simple request: no CORS preflight, which Apps Script cannot answer
+      fetch("https://script.google.com/macros/s/AKfycbxgZiV7RLX8t5cE8fR8TN8a2tMe_0ufQnMsc5OpCJJU6CsVns__QS7qNWhoESTHiiKAnw/exec", { method: "POST", mode: "no-cors", keepalive: true,
+        headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(row) }).catch(function () {});
+    } catch (e) {}
+    try { localStorage.setItem("rfe_unlocked", "1"); } catch (e) {}
+    document.documentElement.classList.remove("eqlocked");
+    window.scrollTo(0, 0);
+  });
+})();
+</script>
 </body>
 </html>

@@ -11,11 +11,20 @@ For three funnel shapes (webinar, reverse squeeze page, workshop series), it giv
 - **one equation per stage** showing what that metric is made of, with one line per channel or variant;
 - **a one-line definition** of every short form, right under the stage that uses it.
 
-Live copies (same file):
-- Primary: https://revops-funnel-equations.growthcluborg.workers.dev (Cloudflare, published by Adi's integrator)
-- Mirror: https://adisuja.github.io/revops-funnel-equations/ (GitHub Pages, publishes automatically from this repo's `main`)
+The one live copy: https://revops-funnel-equations.growthcluborg.workers.dev (Cloudflare, published by Adi's integrator).
 
-Adi asked why there are two. The answer: GitHub Pages was down on launch night, so a Cloudflare copy was added. Recommend keeping one; this is waiting on Adi's decision.
+There used to be a second copy on GitHub Pages, added because Pages was down on launch night. It was switched off on 2026-10-09. Do not turn GitHub Pages back on, and never link to a github.io address for this page.
+
+## The Sign-Up Gate
+
+The page is a lead magnet, so the equations sit behind a short form (decided 2026-10-09).
+
+- The form asks for name, email and WhatsApp number. Nothing else.
+- On submit the equations open on the same page, and the browser remembers it (localStorage key `rfe_unlocked`), so a returning reader never sees the form again.
+- The sign-up is posted to the workshop's form receiver and lands in the team's tracker, in its own Funnel Equations tab. It is sent as a registration row with `source` set to `funnel-equations`, because the receiver only accepts its existing form names. Keep that `source` value: the tracker uses it to tell lead magnet sign-ups from workshop registrations.
+- Once open, the page carries one link: the free workshop. Do not add a second call to action.
+- The form, its script and the link live in `src/equations.py` (`GATE_FORM`, `GATE_JS`, `GATE_CSS`, `WORKSHOP_URL`). Rule 4 still holds around the form: no cards, tips, examples or ranges.
+- To see the form again while testing, open the page in a private window, or run `localStorage.removeItem("rfe_unlocked")` in the console.
 
 ## The 18 Metrics
 
@@ -61,7 +70,7 @@ Adi's original brief, condensed:
 6. **No em dashes or en dashes**, anywhere. Use a colon, a comma, brackets, or "to" for ranges.
 7. **No client names or client numbers** in anything public.
 8. **Never invent or borrow a benchmark** as if it were someone's own number. The example values in the source only make the build's maths checks run. They are not shown on the page.
-9. **After any update, give Adi the clickable, cache-busted link** (for example `https://adisuja.github.io/revops-funnel-equations/?v=<something>`), near the top of the reply, even if the URL did not change. Missing this is a "complete no-no".
+9. **After any update, give Adi the clickable, cache-busted link** (for example `https://revops-funnel-equations.growthcluborg.workers.dev/?v=<something>`), near the top of the reply, even if the URL did not change. Missing this is a "complete no-no".
 10. **Verify visually before handing over**, at desktop (about 1280px) and phone (390px) widths. An HTTP 200 is not proof.
 
 ## What Was Already Rejected (Do Not Repeat)
@@ -78,7 +87,7 @@ Adi's original brief, condensed:
 |---|---|---|
 | `src/eqstages.py` | Every variable: `v(id, "definition", example value)`. Every equation line: `ln(result, "expr", funnels, stage)`, in calculation order. `SHOWN`: which lines each stage displays, and its metric. `WHOLE`: the whole-funnel line per shape. | Yes, for maths and definitions |
 | `src/eqnames.py` | `id -> (Full Name, SHORT)` for every variable | Yes, for names and short forms |
-| `src/equations.py` | The renderer. `render_standalone()` builds the page; `stage_block()`, `whole_block()`, `key_line()` and `meaning()` lay out each stage and key. It also renders the private repo's playbook, centres and agent pack, which is why it has more than this page needs. | Only for layout |
+| `src/equations.py` | The renderer. `render_standalone()` builds the page, including the sign-up form; `stage_block()`, `whole_block()`, `key_line()` and `meaning()` lay out each stage and key. It also renders the private repo's playbook, centres and agent pack, which is why it has more than this page needs. | Only for layout |
 | `src/base-style.html` | The page stylesheet (copied from the workshop playbook) | Rarely |
 | `build.py` | Checks every rule it can (operators, short forms, uniqueness, six stages, whole-funnel equals chain, no dashes, no jump links, no client names), then writes `index.html` | No |
 | `index.html` | Generated output | Never by hand |
@@ -90,11 +99,12 @@ Ids in `expr` are lowercase internal ids (for example `dr_e`). Readers only ever
 1. Edit `src/eqstages.py` and/or `src/eqnames.py`.
 2. Run `python3 build.py`. Fix anything it reports as `FAIL`.
 3. Preview with `python3 -m http.server 8000`, then open `http://localhost:8000/?v=1` at desktop and phone widths. Read every stage you touched.
-4. Commit and push to `main`. GitHub Pages republishes in about a minute. Confirm the live page shows the change (`curl` the URL and grep for your new text).
-5. Send Adi the link with a fresh `?v=` and a two-line summary of what changed.
-6. Tell Adi's integrator, so they can:
-   - refresh the Cloudflare copy (a static Worker deployed from its own isolated folder, never from the monorepo's `cloud/` folder);
+4. Fork the repo, push your branch to your fork and open a pull request against `main`. The repo is public, so anyone can do this; nobody needs to be added as a collaborator.
+5. Tell Adi's integrator the pull request is ready. They merge it, then:
+   - redeploy the Cloudflare page (a static Worker deployed from its own isolated folder holding only `index.html`, never from the monorepo's `cloud/` folder);
    - port the change into the private monorepo.
+   Merging alone publishes nothing: the live page changes only when the integrator redeploys.
+6. Once it is live, confirm the page shows the change (`curl` the URL and grep for your new text), then send Adi the link with a fresh `?v=` and a two-line summary of what changed.
 
 ## The Private Monorepo (For the Integrator)
 
@@ -119,6 +129,5 @@ To port a change:
 
 ## Open Items
 
-- Keep one public copy (Cloudflare or GitHub Pages): waiting on Adi.
 - Merge `r5/EQ` into `onboarding-v2` and deploy the centre: integrator.
-- The page has no email capture. Adi has not asked for one yet.
+- The receiver could take the lead magnet as its own form name instead of a tagged registration row. That needs a new version of the receiver, published from Adi's Google account.
